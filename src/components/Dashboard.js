@@ -1,5 +1,6 @@
 import React from 'react';
 import Note from './Note';
+import Sidebar from './Sidebar'
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -7,8 +8,8 @@ class Dashboard extends React.Component {
     this.state ={
       notes: [
         {
-          title: "test",
-          body: "test"
+          title: "Insert your title",
+          body: "Insert your body"
         }
       ],
       currentNoteIndex: 0
@@ -40,7 +41,7 @@ class Dashboard extends React.Component {
   addNewNote() {
 
     let newNoteArray = this.state.notes.slice()
-    let newNote = { title: '', body: '' }
+    let newNote = { title: 'Insert your title', body: 'Insert your body' }
     newNoteArray.push(newNote)
     let newNoteIndex = newNoteArray.length - 1
 
@@ -50,10 +51,23 @@ class Dashboard extends React.Component {
     })
   }
 
+  changeCurrentIndex(index) {
+    this.setState({
+      currentNoteIndex: index
+    })
+  }
+
   render() {
     return (
-      <div>
-        <button onClick={() => this.addNewNote()} >Add New Note</button>
+      <div className="dashboard">
+        <div className="title">
+          <h1>My Notetaking App</h1>
+          <button onClick={() => this.addNewNote()} >Add New Note</button>
+        </div>
+        <Sidebar
+          notes={this.state.notes}
+          changeCurrentIndex={(index) => this.changeCurrentIndex(index)}
+        />
         <Note
           note={this.state.notes[this.state.currentNoteIndex]}
           handleTitleChange={(e) => this.handleTitleChange(e)}
